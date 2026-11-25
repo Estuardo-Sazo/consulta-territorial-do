@@ -36,7 +36,7 @@ export const NOMBRE_NIVEL = {
 export const COLOR_SENTIDO = { 1: 'var(--bueno)', '-1': 'var(--malo)', 0: 'var(--neutro)' }
 
 // Descarga un CSV con la fuente en las primeras líneas (las bases piden citar al INE).
-// "﻿" (BOM) hace que Excel abra bien las tildes.
+// El BOM (carácter invisible U+FEFF al inicio) hace que Excel abra bien las tildes.
 export function descargarCsv(nombreArchivo, columnas, filas, fuente) {
   const celda = (v) => {
     const t = v == null ? '' : String(v)
@@ -48,7 +48,7 @@ export function descargarCsv(nombreArchivo, columnas, filas, fuente) {
     columnas.map((c) => celda(c.titulo)).join(','),
     ...filas.map((f) => columnas.map((c) => celda(f[c.clave])).join(',')),
   ]
-  const blob = new Blob(['﻿' + lineas.join('\n')], { type: 'text/csv;charset=utf-8' })
+  const blob = new Blob(['\uFEFF' + lineas.join('\n')], { type: 'text/csv;charset=utf-8' })
   const enlace = Object.assign(document.createElement('a'), {
     href: URL.createObjectURL(blob),
     download: nombreArchivo,
