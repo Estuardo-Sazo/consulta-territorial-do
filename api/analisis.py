@@ -67,3 +67,35 @@ def destaca_y_retos(cod: int) -> dict[str, list[dict]]:
     destaca.sort(key=lambda i: -i["percentil_a_favor"])
     retos.sort(key=lambda i: i["percentil_a_favor"])
     return {"destaca": destaca, "retos": retos, "criterio": f"{EXTREMO} % extremo del país"}
+
+
+def _estandarizados() -> tuple[list[str], dict[int, list[float]]]:
+    """Valores z (media 0, desviación 1) de los indicadores en porcentaje o puntos.
+
+    Se estandariza para que un indicador con mucha variación (urbana: 0-100 %)
+    no pese más que uno con poca (65 años o más: 2-12 %).
+    """
+    claves = [i.clave for i in INDICADORES if i.unidad != "personas"]
+    t = tabla()
+    completos = {c: v for c, v in t.items() if all(v[k]["valor"] is not None for k in claves)}
+    z = {c: [] for c in completos}
+    for k in claves:
+        xs = [v[k]["valor"] for v in completos.values()]
+        media = sum(xs) / len(xs)
+        desv = (sum((x - media) ** 2 for x in xs) / len(xs)) ** 0.5 or 1
+        for c, v in completos.items():
+            z[c].append((v[k]["valor"] - media) / desv)
+    return claves, z
+
+
+def parecidos(cod: int, n: int = 5) -> list[dict]:
+    """Los n municipios con perfil más parecido (distancia euclidiana entre valores z)."""
+    claves, z = _estandarizados()
+    if cod not in z:
+        return []
+    propio = z[cod]
+    dist = sorted(
+        (sum((a - b) ** 2 for a, b in zip(propio, otro)) ** 0.5, c) for c, otro in z.items() if c != cod
+    )
+    return [{"codigo": c, "distancia": round(d, 2), "mismo_departamento": c // 100 == cod // 100}
+            for d, c in dist[:n]]
