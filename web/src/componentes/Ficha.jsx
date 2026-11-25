@@ -5,6 +5,7 @@ import { ficha as pedirFicha } from '../api.js'
 import { NOMBRE_NIVEL, entero } from '../formato.js'
 import Hallazgos from './Hallazgos.jsx'
 import Indicadores from './Indicadores.jsx'
+import Parecidos from './Parecidos.jsx'
 import './Ficha.css'
 
 export default function Ficha({ nivel, codigo }) {
@@ -63,6 +64,8 @@ export default function Ficha({ nivel, codigo }) {
       <Hallazgos texto={datos.texto} destacaRetos={datos.destaca_retos} />
 
       <Indicadores indicadores={datos.indicadores} nombre={lugar.nombre} />
+
+      <Parecidos codigo={codigo} parecidos={datos.parecidos} />
     </article>
   )
 }
