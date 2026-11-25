@@ -1,0 +1,14 @@
+.ind { margin: 0; display: flex; flex-direction: column; gap: .25rem; }
+.ind__cabeza { display: flex; justify-content: space-between; align-items: start; gap: .5rem; }
+.ind__cabeza h3 { font-size: .95rem; margin: 0; }
+.ind__valor { font-size: 1.8rem; font-weight: 700; margin: 0; color: var(--marca); }
+.ind .nota, .ind .chip--aviso { margin: 0; white-space: normal; }
+.ind__comparacion { display: grid; gap: .2rem; margin: .4rem 0; }
+.ind__barra { display: grid; grid-template-columns: 7.5rem 1fr 4.5rem; align-items: center; gap: .4rem; font-size: .8rem; }
+.ind__barra-etiqueta { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--tinta-suave); }
+.ind__barra-pista { background: var(--fondo); height: .55rem; border-radius: 4px; overflow: hidden; }
+.ind__barra-pista span { display: block; height: 100%; background: #9fb3c8; }
+.ind__barra--propio .ind__barra-pista span { background: var(--marca); }
+.ind__barra--propio .ind__barra-etiqueta { color: var(--tinta); font-weight: 600; }
+.ind__barra-valor { text-align: right; }
+.ind__def { align-self: start; border: 0; background: none; color: var(--marca); padding: 0; cursor: pointer; font-size: .8rem; text-decoration: underline; }
