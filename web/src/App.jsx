@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react'
 import Buscador from './componentes/Buscador.jsx'
 import Ficha from './componentes/Ficha.jsx'
 import Rigor from './componentes/Rigor.jsx'
+import Comparar from './paginas/Comparar.jsx'
 import Explorar from './paginas/Explorar.jsx'
 import { irA, leerRuta } from './ruta.js'
 import './App.css'
@@ -23,6 +24,7 @@ function fichaDesdeRuta(partes) {
 const PAGINAS = [
   { clave: 'ficha', titulo: 'Fichas', ruta: '#/ficha/pais/0' },
   { clave: 'explorar', titulo: 'Explorar', ruta: '#/explorar' },
+  { clave: 'comparar', titulo: 'Comparar', ruta: '#/comparar' },
 ]
 
 export default function App() {
@@ -66,6 +68,8 @@ export default function App() {
       <main className="contenedor">
         {ruta.pagina === 'explorar' ? (
           <Explorar partes={ruta.partes} />
+        ) : ruta.pagina === 'comparar' ? (
+          <Comparar partes={ruta.partes} />
         ) : (
           // key: al cambiar de territorio React monta una Ficha nueva con estado limpio.
           <Ficha key={`${ficha.nivel}-${ficha.codigo}`} {...ficha} onSeleccionar={seleccionar} />
