@@ -61,3 +61,32 @@ def dispersion(x: str = Query(..., description="Indicador del eje X"),
     nombres = nombres_municipios()
     d["puntos"] = [{**p, **nombres[p["codigo"]]} for p in d["puntos"]]
     return d
+
+
+@router.get("/comparar")
+def comparar(a: int = Query(..., description="Código del primer municipio"),
+             b: int = Query(..., description="Código del segundo municipio")):
+    """Dos municipios lado a lado: valor, puesto en el país y diferencia por indicador.
+
+    `mejor` dice cuál está en mejor situación según el sentido del indicador
+    (None si el indicador es descriptivo o la diferencia es menor a 1 punto)."""
+    nombres = nombres_municipios()
+    for cod in (a, b):
+        if cod not in nombres:
+            raise HTTPException(404, f"No existe el municipio {cod}")
+    t = tabla()
+    filas = []
+    for ind in catalogo():
+        k = ind["clave"]
+        va, vb = t[a][k]["valor"], t[b][k]["valor"]
+        mejor = None
+        if ind["sentido"] and va is not None and vb is not None and abs(va - vb) >= 1:
+            mejor = a if (va > vb) == (ind["sentido"] > 0) else b
+        pa, pb = analisis.posicion(a, k), analisis.posicion(b, k)
+        filas.append({
+            **ind, "a": va, "b": vb,
+            "diferencia": round(va - vb, 1) if va is not None and vb is not None else None,
+            "puesto_a": pa and pa["pais"], "puesto_b": pb and pb["pais"],
+            "pocos_casos": t[a][k]["pocos_casos"] or t[b][k]["pocos_casos"], "mejor": mejor,
+        })
+    return {"a": {"codigo": a, **nombres[a]}, "b": {"codigo": b, **nombres[b]}, "indicadores": filas}
