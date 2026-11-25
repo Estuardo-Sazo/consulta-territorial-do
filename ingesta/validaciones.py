@@ -69,3 +69,22 @@ def ejecutar(con: duckdb.DuckDBPyConnection, chequeos: list[tuple[str, str]],
         filas.append({"chequeo": nombre, "problemas": problemas, "aprobado": problemas == 0})
     filas += [{"chequeo": t, "problemas": 0, "aprobado": True} for t in informativos]
     return pd.DataFrame(filas)
+
+CHEQUEOS_PRECIOS = [
+    (
+        "Guatecompras: todo precio unitario es positivo",
+        "SELECT COUNT(*) FROM precios_guatecompras WHERE NOT precio_unitario > 0",
+    ),
+    (
+        "Guatecompras: las 340 municipalidades tienen código de municipio del INE",
+        "SELECT 340 - COUNT(DISTINCT cod_mupio) FROM equivalencias_municipalidad WHERE cod_mupio IS NOT NULL",
+    ),
+    (
+        "Guatecompras: todo proceso municipal apunta a un municipio existente",
+        "SELECT COUNT(*) FROM compras_municipales WHERE cod_mupio NOT IN (SELECT cod_mupio FROM municipios)",
+    ),
+    (
+        "Precios de referencia INE: todo precio es positivo y tiene fecha",
+        "SELECT COUNT(*) FROM precios_referencia WHERE NOT precio > 0 OR fecha_precio IS NULL",
+    ),
+]
