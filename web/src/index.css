@@ -97,3 +97,4 @@ td.num, th.num { text-align: right; }
   .contenedor { max-width: none; }
   a { color: inherit; text-decoration: none; }
 }
+select { max-width: 100%; }

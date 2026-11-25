@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react'
 import Buscador from './componentes/Buscador.jsx'
 import Ficha from './componentes/Ficha.jsx'
 import Rigor from './componentes/Rigor.jsx'
+import Explorar from './paginas/Explorar.jsx'
 import { irA, leerRuta } from './ruta.js'
 import './App.css'
 
@@ -21,6 +22,7 @@ function fichaDesdeRuta(partes) {
 
 const PAGINAS = [
   { clave: 'ficha', titulo: 'Fichas', ruta: '#/ficha/pais/0' },
+  { clave: 'explorar', titulo: 'Explorar', ruta: '#/explorar' },
 ]
 
 export default function App() {
@@ -28,8 +30,10 @@ export default function App() {
 
   useEffect(() => {
     const alCambiar = () => {
-      setRuta(leerRuta())
-      window.scrollTo({ top: 0 })
+      const nueva = leerRuta()
+      setRuta(nueva)
+      // En Explorar el hash cambia al hacer clic en el mapa: ahí no se salta arriba.
+      if (nueva.pagina !== 'explorar') window.scrollTo({ top: 0 })
     }
     window.addEventListener('hashchange', alCambiar)
     return () => window.removeEventListener('hashchange', alCambiar)
@@ -60,8 +64,12 @@ export default function App() {
       </header>
 
       <main className="contenedor">
-        {/* key: al cambiar de territorio React monta una Ficha nueva con estado limpio. */}
-        <Ficha key={`${ficha.nivel}-${ficha.codigo}`} {...ficha} onSeleccionar={seleccionar} />
+        {ruta.pagina === 'explorar' ? (
+          <Explorar partes={ruta.partes} />
+        ) : (
+          // key: al cambiar de territorio React monta una Ficha nueva con estado limpio.
+          <Ficha key={`${ficha.nivel}-${ficha.codigo}`} {...ficha} onSeleccionar={seleccionar} />
+        )}
       </main>
 
       <footer className="contenedor app__pie">
