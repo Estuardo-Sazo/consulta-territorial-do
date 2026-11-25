@@ -10,6 +10,7 @@ import Ficha from './componentes/Ficha.jsx'
 import Rigor from './componentes/Rigor.jsx'
 import Comparar from './paginas/Comparar.jsx'
 import Explorar from './paginas/Explorar.jsx'
+import Precios from './paginas/Precios.jsx'
 import { irA, leerRuta } from './ruta.js'
 import './App.css'
 
@@ -25,6 +26,7 @@ const PAGINAS = [
   { clave: 'ficha', titulo: 'Fichas', ruta: '#/ficha/pais/0' },
   { clave: 'explorar', titulo: 'Explorar', ruta: '#/explorar' },
   { clave: 'comparar', titulo: 'Comparar', ruta: '#/comparar' },
+  { clave: 'precios', titulo: 'Precios', ruta: '#/precios' },
 ]
 
 export default function App() {
@@ -70,6 +72,8 @@ export default function App() {
           <Explorar partes={ruta.partes} />
         ) : ruta.pagina === 'comparar' ? (
           <Comparar partes={ruta.partes} />
+        ) : ruta.pagina === 'precios' ? (
+          <Precios key={ruta.partes[0] ?? ''} partes={ruta.partes} />
         ) : (
           // key: al cambiar de territorio React monta una Ficha nueva con estado limpio.
           <Ficha key={`${ficha.nivel}-${ficha.codigo}`} {...ficha} onSeleccionar={seleccionar} />
