@@ -9,7 +9,7 @@ import os
 from fastapi import APIRouter, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from api.rutas import analisis, territorio
+from api.rutas import analisis, precios, territorio
 
 app = FastAPI(
     title="Fichas Territoriales · INE Guatemala",
@@ -31,4 +31,5 @@ app.add_middleware(
 api = APIRouter(prefix="/api")
 api.include_router(territorio.router)
 api.include_router(analisis.router)
+api.include_router(precios.router)
 app.include_router(api)
