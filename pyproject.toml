@@ -6,6 +6,8 @@ version = "0.1.0"
 description = "Fichas territoriales del Censo 2018 y precios de compras públicas para coordinaciones regionales del INE"
 requires-python = ">=3.12"
 dependencies = [
+    "duckdb>=2.0.1",
     "openpyxl>=3.1.5",
     "pandas>=3.1.1",
+    "pyarrow>=26.0.1",
 ]
