@@ -96,7 +96,9 @@ INDICADORES = [
     Indicador("mujeres", "Mujeres", "Población", "%", 0, FUENTE_CENSO,
               "Mujeres / población total censada.", porcentaje("A1", "Sexo", "Mujeres")),
     Indicador("urbana", "Población urbana", "Población", "%", 0, FUENTE_CENSO,
-              "Población en área urbana / población total censada.", porcentaje("A1", "Área", "Urbana")),
+              "Población en área urbana / población total censada, según la clasificación de área del Censo 2018 "
+              "(por ella algunos municipios, como Cobán, aparecen casi 100 % urbanos).",
+              porcentaje("A1", "Área", "Urbana")),
     Indicador("menores_15", "Menores de 15 años", "Población", "%", 0, FUENTE_CENSO,
               "Población de 0 a 14 años / población total censada.",
               porcentaje("A1", "Grupos de edad", *EDADES_0_14)),
