@@ -12,3 +12,8 @@ dependencies = [
     "pyarrow>=26.0.1",
     "shapely>=2.2.0",
 ]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+]
