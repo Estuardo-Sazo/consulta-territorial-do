@@ -39,3 +39,31 @@ def ranking(clave: str, cod_depto: int | None = None) -> list[dict]:
         vals = {c: v for c, v in vals.items() if c // 100 == cod_depto}
     orden = sorted(vals.items(), key=lambda cv: cv[1], reverse=True)
     return [{"codigo": c, "valor": v, "puesto": i + 1} for i, (c, v) in enumerate(orden)]
+
+
+# "Extremo" = el 10 % del país en ese lado (34 de 340 municipios).
+EXTREMO = 10
+
+
+def destaca_y_retos(cod: int) -> dict[str, list[dict]]:
+    """Indicadores en que el municipio está en el 10 % MEJOR (destaca) o PEOR (retos)
+    del país, según el sentido de cada indicador. Los descriptivos no participan."""
+    destaca, retos = [], []
+    for ind in INDICADORES:
+        if ind.sentido == 0:
+            continue
+        p = posicion(cod, ind.clave)
+        if p is None or tabla()[cod][ind.clave]["pocos_casos"]:
+            continue
+        # Percentil "a favor": 100 = el mejor del país según el sentido.
+        a_favor = p["percentil"] if ind.sentido > 0 else 100 - p["percentil"]
+        item = {"clave": ind.clave, "nombre": ind.nombre, "unidad": ind.unidad,
+                "valor": tabla()[cod][ind.clave]["valor"], "puesto": p["pais"], "de": p["de_pais"],
+                "percentil_a_favor": a_favor}
+        if a_favor >= 100 - EXTREMO:
+            destaca.append(item)
+        elif a_favor <= EXTREMO:
+            retos.append(item)
+    destaca.sort(key=lambda i: -i["percentil_a_favor"])
+    retos.sort(key=lambda i: i["percentil_a_favor"])
+    return {"destaca": destaca, "retos": retos, "criterio": f"{EXTREMO} % extremo del país"}
