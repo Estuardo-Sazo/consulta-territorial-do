@@ -1,0 +1,19 @@
+/* Dos columnas en pantallas anchas; una en celular. */
+.proyecciones__rejilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.proyecciones__anio {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.proyecciones__anio input {
+  flex: 1;
+  accent-color: #c2571a;
+}
+

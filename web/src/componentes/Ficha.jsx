@@ -6,6 +6,7 @@ import { NOMBRE_NIVEL, entero } from '../formato.js'
 import Hallazgos from './Hallazgos.jsx'
 import Indicadores from './Indicadores.jsx'
 import Parecidos from './Parecidos.jsx'
+import Proyecciones from './Proyecciones.jsx'
 import './Ficha.css'
 
 export default function Ficha({ nivel, codigo }) {
@@ -30,6 +31,11 @@ export default function Ficha({ nivel, codigo }) {
   if (error) return <p className="aviso">{error}</p>
   if (!datos) return <p>Cargando ficha…</p>
   const { lugar, jerarquia } = datos
+  // Las proyecciones no existen por lugar poblado: se muestran las de su municipio.
+  const esLp = nivel === 'lugar_poblado'
+  const proy = esLp
+    ? { nivel: 'municipio', codigo: Math.floor(codigo / 1000), nombre: jerarquia[0].nombre }
+    : { nivel, codigo, nombre: lugar.nombre }
 
   return (
     <article className="ficha">
@@ -66,6 +72,8 @@ export default function Ficha({ nivel, codigo }) {
       <Indicadores indicadores={datos.indicadores} nombre={lugar.nombre} />
 
       <Parecidos codigo={codigo} parecidos={datos.parecidos} />
+
+      <Proyecciones {...proy} esDeLugarPoblado={esLp} />
     </article>
   )
 }
