@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { ficha as pedirFicha } from '../api.js'
 import { NOMBRE_NIVEL, entero } from '../formato.js'
+import Hallazgos from './Hallazgos.jsx'
 import Indicadores from './Indicadores.jsx'
 import './Ficha.css'
 
@@ -58,6 +59,8 @@ export default function Ficha({ nivel, codigo }) {
           “Otros lugares poblados” es una agrupación del INE de lugares pequeños del municipio, no un lugar único.
         </p>
       )}
+
+      <Hallazgos texto={datos.texto} destacaRetos={datos.destaca_retos} />
 
       <Indicadores indicadores={datos.indicadores} nombre={lugar.nombre} />
     </article>
