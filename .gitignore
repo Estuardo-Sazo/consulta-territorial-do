@@ -1,16 +1,29 @@
-# Dependencias y compilados
-node_modules/
-dist/
-*.tsbuildinfo
-.angular/
-coverage/
+# .gitignore — lo que Git NO guarda: lo que se puede regenerar y lo secreto.
 
-# Secretos (solo se sube .env.example)
+# --- Python ---
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# --- Node / web ---
+node_modules/
+web/dist/
+
+# --- Datos ---
+# La base DuckDB se reconstruye con `python -m ingesta.cargar`.
+datos/*.duckdb
+datos/*.duckdb.tmp
+datos/*.duckdb.wal
+# Los zips mensuales de Guatecompras pesan ~37 MB cada uno: no se versionan.
+# Sí se versiona el Parquet filtrado (datos/procesados/), pequeño y suficiente.
+datos/crudos/guatecompras/
+
+# --- Secretos ---
 .env
 .env.*
-!.env.example
 
-# Sistema y editores
+# --- Sistema operativo / editores ---
 .DS_Store
 .vscode/
 .idea/
