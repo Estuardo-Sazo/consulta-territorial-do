@@ -1,0 +1,16 @@
+# Lo que NO se envía a Docker al construir la imagen de la API.
+.git
+.venv
+__pycache__
+.pytest_cache
+tests
+docs
+# La base se construye dentro de la imagen.
+datos/*.duckdb
+datos/*.duckdb.tmp
+# Los zips de Guatecompras pesan 356 MB y no hacen falta (se usa el Parquet).
+datos/crudos/guatecompras
+# La web tiene su propia imagen.
+web
+.env
+.env.*
