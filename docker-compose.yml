@@ -1,0 +1,29 @@
+# Fichas Territoriales: API (FastAPI + DuckDB) y web (React + nginx).
+#   docker compose up -d --build   ->  http://localhost:8090
+# Solo se publica la web; la API queda en la red interna y nginx la expone en /api/.
+name: consulta-territorial
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+    restart: unless-stopped
+    healthcheck:
+      # Usa el python de la imagen; no hace falta instalar curl.
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/salud')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  web:
+    build:
+      context: web
+    restart: unless-stopped
+    ports:
+      # Otro puerto si 8090 está ocupado: FICHAS_PUERTO=8091 docker compose up -d
+      - "${FICHAS_PUERTO:-8090}:80"
+    depends_on:
+      api:
+        condition: service_healthy
