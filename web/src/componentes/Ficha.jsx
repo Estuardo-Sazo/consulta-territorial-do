@@ -7,6 +7,7 @@ import Hallazgos from './Hallazgos.jsx'
 import Indicadores from './Indicadores.jsx'
 import Parecidos from './Parecidos.jsx'
 import Proyecciones from './Proyecciones.jsx'
+import TablaCuadro from './TablaCuadro.jsx'
 import './Ficha.css'
 
 export default function Ficha({ nivel, codigo }) {
@@ -74,6 +75,8 @@ export default function Ficha({ nivel, codigo }) {
       <Parecidos codigo={codigo} parecidos={datos.parecidos} />
 
       <Proyecciones {...proy} esDeLugarPoblado={esLp} />
+
+      <TablaCuadro nivel={nivel} codigo={codigo} />
     </article>
   )
 }
