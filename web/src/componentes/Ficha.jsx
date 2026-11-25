@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { ficha as pedirFicha } from '../api.js'
 import { NOMBRE_NIVEL, entero } from '../formato.js'
+import ComprasMunicipio from './ComprasMunicipio.jsx'
 import Hallazgos from './Hallazgos.jsx'
 import Indicadores from './Indicadores.jsx'
 import Parecidos from './Parecidos.jsx'
@@ -78,6 +79,8 @@ export default function Ficha({ nivel, codigo, onSeleccionar }) {
       <Subterritorios nivel={nivel} codigo={codigo} onSeleccionar={onSeleccionar} />
 
       <Proyecciones {...proy} esDeLugarPoblado={esLp} />
+
+      {nivel === 'municipio' && <ComprasMunicipio codigo={codigo} />}
 
       <TablaCuadro nivel={nivel} codigo={codigo} />
     </article>
