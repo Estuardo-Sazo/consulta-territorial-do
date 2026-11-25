@@ -82,6 +82,9 @@ def test_precios_por_unidad_con_referencia_ine():
     assert p["unidad"] and p["estadisticas"]["n"] > 0
     assert all(r["fecha_precio"] for r in p["referencias_ine"])
     assert any("ADJUDICADOS" in a for a in p["avisos"])
+    # Las referencias salen del NOMBRE del producto, no de características que
+    # solo mencionan el papel (impresoras, chocolates en empaque de papel...).
+    assert p["referencias_ine"] and all("papel bond" in r["producto"].lower() for r in p["referencias_ine"])
 
 
 def test_compras_municipales():

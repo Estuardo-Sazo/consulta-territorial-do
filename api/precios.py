@@ -71,9 +71,24 @@ def condicion_texto(columna: str, palabras: list[str]) -> tuple[str, list]:
 
 
 def referencias_ine(palabras: list[str], limite: int = 25) -> list[dict]:
-    """Precios de referencia del INE cuyo producto o características contienen las palabras."""
-    cond, p = condicion_texto("texto", palabras)
-    return consultar(
-        f"""SELECT nog, evento, producto, caracteristicas, presentacion, precio, fecha_precio, origen
-            FROM precios_referencia WHERE {cond}
-            ORDER BY fecha_precio DESC LIMIT ?""", p + [limite])
+    """Precios de referencia del INE para las palabras buscadas.
+
+    Primero se busca solo en el NOMBRE del producto. Las características son
+    textos largos que mencionan otros productos ("impresora ... papel bond"),
+    así que solo se usan si el nombre no da ningún resultado. Cada fila dice
+    dónde coincidió. Las filas repetidas (mismo producto en mayúsculas y en
+    minúsculas, mismo precio y fecha) se muestran una vez."""
+    if not palabras:
+        return []
+    for campo, donde in (("lower(strip_accents(producto))", "producto"), ("texto", "caracteristicas")):
+        cond, p = condicion_texto(campo, palabras)
+        filas = consultar(
+            f"""SELECT any_value(nog) AS nog, any_value(evento) AS evento, any_value(producto) AS producto,
+                       any_value(caracteristicas) AS caracteristicas, presentacion, precio, fecha_precio,
+                       any_value(origen) AS origen, ? AS coincidencia
+                FROM precios_referencia WHERE {cond}
+                GROUP BY lower(strip_accents(producto)), presentacion, precio, fecha_precio
+                ORDER BY fecha_precio DESC LIMIT ?""", [donde] + p + [limite])
+        if filas:
+            return filas
+    return []
