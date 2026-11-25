@@ -99,3 +99,39 @@ def parecidos(cod: int, n: int = 5) -> list[dict]:
     )
     return [{"codigo": c, "distancia": round(d, 2), "mismo_departamento": c // 100 == cod // 100}
             for d, c in dist[:n]]
+
+
+def pearson(xs: list[float], ys: list[float]) -> float | None:
+    """Coeficiente de correlación de Pearson (-1 a 1)."""
+    n = len(xs)
+    if n < 3:
+        return None
+    mx, my = sum(xs) / n, sum(ys) / n
+    sxy = sum((x - mx) * (y - my) for x, y in zip(xs, ys))
+    sx = sum((x - mx) ** 2 for x in xs) ** 0.5
+    sy = sum((y - my) ** 2 for y in ys) ** 0.5
+    return round(sxy / (sx * sy), 3) if sx and sy else None
+
+
+def fuerza(r: float | None) -> str:
+    """Lectura en palabras del valor absoluto de r (convención usual)."""
+    if r is None:
+        return "sin dato"
+    a = abs(r)
+    nivel = "muy débil" if a < 0.2 else "débil" if a < 0.4 else "moderada" if a < 0.6 else "fuerte"
+    return f"{nivel} {'positiva' if r > 0 else 'negativa'}"
+
+
+def dispersion(x: str, y: str) -> dict:
+    """Puntos (municipio, x, y) de dos indicadores, con r y su lectura."""
+    vx, vy = valores(x), valores(y)
+    comunes = sorted(set(vx) & set(vy))
+    r = pearson([vx[c] for c in comunes], [vy[c] for c in comunes])
+    return {
+        "x": POR_CLAVE[x].nombre, "y": POR_CLAVE[y].nombre,
+        "puntos": [{"codigo": c, "x": vx[c], "y": vy[c]} for c in comunes],
+        "r": r, "lectura": fuerza(r), "n": len(comunes),
+        "advertencia": "Correlación no es causalidad: que dos indicadores se muevan juntos no "
+                       "significa que uno cause al otro; ambos pueden depender de un tercero "
+                       "(por ejemplo, la urbanización).",
+    }
