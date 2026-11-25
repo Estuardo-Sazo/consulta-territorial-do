@@ -92,8 +92,10 @@ td.num, th.num { text-align: right; }
 /* Impresión en PDF (Ctrl+P): sin navegación ni controles, tarjetas sin cortar. */
 @media print {
   :root { background: #fff; }
-  .no-imprimir, header, nav, footer .no-imprimir { display: none !important; }
+  /* Solo la barra de la app: el encabezado de la ficha (también un <header>) sí se imprime. */
+  .no-imprimir, .app__encabezado { display: none !important; }
   .tarjeta { break-inside: avoid; border-color: #bbb; }
+  h2, h3 { break-after: avoid; }
   .contenedor { max-width: none; }
   a { color: inherit; text-decoration: none; }
 }
