@@ -9,6 +9,7 @@ import { departamentos, precios, sugerenciasPrecios } from '../api.js'
 import { irA } from '../ruta.js'
 import Grafica from '../componentes/Grafica.jsx'
 import { descargarCsv, entero, fecha, quetzales } from '../formato.js'
+import { INE } from '../paleta.js'
 
 const EJEMPLOS = ['papel bond', 'cemento', 'guantes', 'tóner', 'gasolina', 'arroz']
 
@@ -67,10 +68,10 @@ export default function Precios({ partes }) {
         x: { label: `Precio unitario (Q por ${datos?.unidad ?? ''})` },
         y: { label: 'Renglones', grid: true },
         marks: [
-          Plot.rectY(xs, Plot.binX({ y: 'count' }, { x: (d) => d, fill: '#1d4e89', fillOpacity: 0.7, thresholds: 25 })),
-          Plot.ruleX(e ? [e.mediana] : [], { stroke: '#c2571a', strokeWidth: 2 }),
+          Plot.rectY(xs, Plot.binX({ y: 'count' }, { x: (d) => d, fill: INE.azulBrillante, fillOpacity: 0.75, thresholds: 25 })),
+          Plot.ruleX(e ? [e.mediana] : [], { stroke: INE.naranja, strokeWidth: 2 }),
           Plot.text(e ? [e.mediana] : [], { x: (d) => d, frameAnchor: 'top', dy: 4, dx: 6, textAnchor: 'start',
-                                            text: (d) => `mediana ${quetzales(d)}`, fill: '#c2571a' }),
+                                            text: (d) => `mediana ${quetzales(d)}`, fill: '#c2410c' }),
           Plot.ruleY([0]),
         ],
       }

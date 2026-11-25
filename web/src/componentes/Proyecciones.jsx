@@ -9,6 +9,7 @@ import { proyecciones } from '../api.js'
 import { entero } from '../formato.js'
 import Grafica from './Grafica.jsx'
 import './Proyecciones.css'
+import { INE } from '../paleta.js'
 
 const ANIO_ACTUAL = 2026
 
@@ -38,16 +39,16 @@ export default function Proyecciones({ nivel, codigo, nombre, esDeLugarPoblado }
       y: { label: 'Población', grid: true, zero: true, tickFormat: (d) => entero(d) },
       x: { label: null, tickFormat: (d) => String(d) },
       marks: [
-        Plot.lineY(datos?.serie ?? [], { x: 'anio', y: 'total', stroke: '#1d4e89', strokeWidth: 2 }),
-        Plot.dot(datos?.serie ?? [], { x: 'anio', y: 'total', fill: '#1d4e89', r: 2.5,
+        Plot.lineY(datos?.serie ?? [], { x: 'anio', y: 'total', stroke: INE.azul, strokeWidth: 2 }),
+        Plot.dot(datos?.serie ?? [], { x: 'anio', y: 'total', fill: INE.azul, r: 2.5,
           tip: true, title: (d) => `${d.anio}: ${entero(d.total)} (proyección)` }),
         // El año elegido para la pirámide, resaltado.
-        Plot.ruleX([anio], { stroke: '#c2571a', strokeDasharray: '4,3' }),
+        Plot.ruleX([anio], { stroke: INE.naranja, strokeDasharray: '4,3' }),
         // Conteo del censo 2018 como punto aparte (no es parte de la serie proyectada).
         Plot.dot(datos ? [{ anio: 2018, v: datos.poblacion_censada_2018 }] : [],
-          { x: 'anio', y: 'v', symbol: 'diamond', r: 5, fill: '#c2571a' }),
+          { x: 'anio', y: 'v', symbol: 'diamond', r: 5, fill: INE.naranja }),
         Plot.text(datos ? [{ anio: 2018, v: datos.poblacion_censada_2018 }] : [],
-          { x: 'anio', y: 'v', text: () => 'Censo 2018', dy: 14, fill: '#c2571a', fontSize: 11 }),
+          { x: 'anio', y: 'v', text: () => 'Censo 2018', dy: 14, fill: '#c2410c', fontSize: 11 }),
       ],
     }),
     [datos, anio],
@@ -70,7 +71,7 @@ export default function Proyecciones({ nivel, codigo, nombre, esDeLugarPoblado }
         x: { label: '← Hombres · Mujeres →', tickFormat: (d) => entero(Math.abs(d)) },
         // Eje Y ordenado de menor a mayor edad (de abajo hacia arriba).
         y: { label: 'Edad', domain: [...new Set(filas.sort((a, b) => b.orden - a.orden).map((f) => f.edad))] },
-        color: { domain: ['Hombres', 'Mujeres'], range: ['#1f7a8c', '#c2571a'], legend: true },
+        color: { domain: ['Hombres', 'Mujeres'], range: [INE.azulBrillante, INE.naranja], legend: true },
         marks: [
           Plot.barX(filas, { x: 'valor', y: 'edad', fill: 'sexo', tip: true,
             title: (d) => `${d.sexo} ${d.edad}: ${entero(Math.abs(d.valor))}` }),

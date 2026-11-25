@@ -14,6 +14,6 @@
 
 .proyecciones__anio input {
   flex: 1;
-  accent-color: #c2571a;
+  accent-color: var(--naranja);
 }
 

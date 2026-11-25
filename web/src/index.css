@@ -1,17 +1,23 @@
-/* Estilos base. Variables de color en :root para usarlas en todos los componentes. */
+/* Estilos base. Variables de color en :root para usarlas en todos los componentes.
+   Paleta institucional del INE: ver src/paleta.js (mismas cifras). */
 :root {
-  --tinta: #1b2430;
-  --tinta-suave: #5a6472;
-  --fondo: #f5f6f8;
+  --tinta: #1a2233;
+  --tinta-suave: #4f5b6e;    /* contraste 6.6:1 sobre blanco */
+  --fondo: #f3f6fb;
   --papel: #ffffff;
-  --borde: #dde1e7;
-  --marca: #1d4e89;          /* azul institucional */
-  --marca-suave: #e7eef7;
-  --bueno: #1a7f5a;          /* sentido: mejor */
-  --malo: #b3401f;           /* sentido: peor */
-  --neutro: #6b7280;         /* descriptivo */
-  --aviso: #8a5a00;
-  --aviso-fondo: #fff6e0;
+  --borde: #d9e0ea;
+  --marca: #0b3a86;          /* azul oscuro INE */
+  --marca-brillante: #1677e0;/* azul del logo INE: acentos, no texto pequeño */
+  --marca-suave: #e6effb;
+  --acento: #ffd100;         /* amarillo INE: solo sobre azul */
+  --naranja: #ff5a00;        /* naranja INE: gráficas */
+  --bueno: #2f7a0a;          /* verde INE oscurecido para texto (5.6:1) */
+  --bueno-fondo: #eaf6dc;
+  --malo: #c2410c;           /* naranja INE oscurecido para texto (5.2:1) */
+  --malo-fondo: #ffece0;
+  --neutro: #5f6b7a;         /* descriptivo */
+  --aviso: #6b4e00;
+  --aviso-fondo: #fff5c7;    /* amarillo INE muy claro */
   --radio: 10px;
   font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   color: var(--tinta);
@@ -22,7 +28,7 @@
 
 * { box-sizing: border-box; }
 body { margin: 0; }
-h1, h2, h3 { line-height: 1.2; margin: 0 0 .5rem; }
+h1, h2, h3 { line-height: 1.2; margin: 0 0 .5rem; color: var(--marca); }
 h2 { font-size: 1.25rem; }
 h3 { font-size: 1rem; }
 a { color: var(--marca); }
@@ -32,6 +38,7 @@ button, input, select { font: inherit; }
 
 .tarjeta {
   background: var(--papel);
+  box-shadow: 0 1px 2px rgb(11 58 134 / 6%);
   border: 1px solid var(--borde);
   border-radius: var(--radio);
   padding: 1rem 1.25rem;
@@ -45,7 +52,7 @@ button, input, select { font: inherit; }
 .aviso {
   background: var(--aviso-fondo);
   color: var(--aviso);
-  border-left: 4px solid var(--aviso);
+  border-left: 4px solid var(--acento);
   padding: .5rem .75rem;
   border-radius: 6px;
   font-size: .9rem;
@@ -61,8 +68,8 @@ button, input, select { font: inherit; }
   color: var(--marca);
   white-space: nowrap;
 }
-.chip--bueno { background: #e3f3ec; color: var(--bueno); }
-.chip--malo { background: #f8e6e0; color: var(--malo); }
+.chip--bueno { background: var(--bueno-fondo); color: var(--bueno); }
+.chip--malo { background: var(--malo-fondo); color: var(--malo); }
 .chip--aviso { background: var(--aviso-fondo); color: var(--aviso); }
 
 .boton {
@@ -75,6 +82,8 @@ button, input, select { font: inherit; }
 }
 .boton:hover { background: var(--marca-suave); }
 .boton--lleno { background: var(--marca); color: #fff; }
+.boton--lleno:hover { background: var(--marca-brillante); }
+:focus-visible { outline: 3px solid var(--marca-brillante); outline-offset: 2px; }
 
 select, input[type='search'], input[type='text'] {
   border: 1px solid var(--borde);

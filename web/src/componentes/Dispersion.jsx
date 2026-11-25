@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react'
 import * as Plot from '@observablehq/plot'
 import { dispersion } from '../api.js'
 import Grafica from './Grafica.jsx'
+import { INE } from '../paleta.js'
 
 export default function Dispersion({ catalogo, x, y, onCambiar, resaltado }) {
   const [datos, setDatos] = useState(null)
@@ -28,11 +29,11 @@ export default function Dispersion({ catalogo, x, y, onCambiar, resaltado }) {
         x: { label: datos?.x },
         y: { label: datos?.y },
         marks: [
-          Plot.dot(puntos, { x: 'x', y: 'y', r: 3.5, fill: '#1d4e89', fillOpacity: 0.45, tip: true,
+          Plot.dot(puntos, { x: 'x', y: 'y', r: 3.5, fill: INE.azulBrillante, fillOpacity: 0.45, tip: true,
                              channels: { Municipio: 'nombre', Departamento: 'departamento' } }),
           // Recta de tendencia (mínimos cuadrados): solo ilustra la dirección de r.
-          Plot.linearRegressionY(puntos, { x: 'x', y: 'y', stroke: '#c2571a' }),
-          Plot.dot(marca, { x: 'x', y: 'y', r: 7, stroke: '#111', strokeWidth: 2 }),
+          Plot.linearRegressionY(puntos, { x: 'x', y: 'y', stroke: INE.naranja }),
+          Plot.dot(marca, { x: 'x', y: 'y', r: 7, stroke: INE.azul, strokeWidth: 2 }),
           Plot.text(marca, { x: 'x', y: 'y', text: 'nombre', dy: -12, fontWeight: 'bold' }),
         ],
       }

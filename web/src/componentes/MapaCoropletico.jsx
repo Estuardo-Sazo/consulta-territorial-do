@@ -3,20 +3,17 @@
 //
 // Color por quintiles: cada tono agrupa ~68 municipios, así un municipio
 // extremo no aplasta la escala. La paleta depende del SENTIDO:
-//   1  más alto es mejor  -> azul (oscuro = mejor)
-//  -1  más alto es peor   -> rojo (oscuro = peor)
-//   0  descriptivo        -> morado (no se juzga)
+//   1  más alto es mejor  -> azul INE (oscuro = mejor)
+//  -1  más alto es peor   -> naranja INE (oscuro = peor)
+//   0  descriptivo        -> gris azulado (no se juzga)
 import { useEffect, useRef } from 'react'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { valor as fmt } from '../formato.js'
+import { ESCALAS, INE } from '../paleta.js'
 
-const PALETAS = {
-  1: ['#deebf7', '#9ecae1', '#6baed6', '#3182bd', '#08519c'],
-  '-1': ['#fee5d9', '#fcae91', '#fb6a4a', '#de2d26', '#a50f15'],
-  0: ['#f2f0f7', '#cbc9e2', '#9e9ac8', '#756bb1', '#54278f'],
-}
-const SIN_DATO = '#d9d9d9'
+const PALETAS = ESCALAS
+const SIN_DATO = '#ffffff' // blanco: no se confunde con ningún tono de las escalas
 
 /** Cortes de quintil de una lista de valores (4 límites). */
 function cortes(valores) {
@@ -62,7 +59,8 @@ export default function MapaCoropletico({ geojson, datos, seleccionado, onSelecc
         const d = porCodigo.get(f.properties.codigo)
         const elegido = f.properties.codigo === seleccionado
         return { fillColor: colorDe(d?.valor, limites, paleta), fillOpacity: 0.9,
-                 color: elegido ? '#111' : '#fff', weight: elegido ? 2.5 : 0.5 }
+                 // Contorno del elegido: amarillo sobre la escala azul, azul oscuro sobre las demás.
+                 color: elegido ? (datos.indicador.sentido === 1 ? INE.amarillo : INE.azul) : '#fff', weight: elegido ? 3.5 : 0.5 }
       },
       onEachFeature: (f, capaPoligono) => {
         const d = porCodigo.get(f.properties.codigo)
@@ -79,7 +77,7 @@ export default function MapaCoropletico({ geojson, datos, seleccionado, onSelecc
     if (!mapa.current._loaded) mapa.current.fitBounds(capa.current.getBounds())
   }, [geojson, datos, seleccionado])
 
-  return <div ref={contenedor} style={{ height: 460, borderRadius: 'var(--radio)', background: '#eef3f8' }}
+  return <div ref={contenedor} style={{ height: 460, borderRadius: 'var(--radio)', background: 'var(--marca-suave)' }}
               role="img" aria-label="Mapa de municipios coloreado por el indicador elegido" />
 }
 
@@ -100,7 +98,7 @@ export function LeyendaMapa({ datos }) {
           <span style={{ width: 14, height: 14, background: c, borderRadius: 3, display: 'inline-block' }} />{t}
         </span>
       ))}
-      <span><span style={{ width: 14, height: 14, background: SIN_DATO, borderRadius: 3, display: 'inline-block',
+      <span><span style={{ width: 14, height: 14, background: SIN_DATO, border: '1px solid var(--borde)', borderRadius: 3, display: 'inline-block',
                            verticalAlign: 'middle' }} /> sin dato</span>
       <strong>{sentido}</strong> · quintiles (≈ 68 municipios por color)
     </div>

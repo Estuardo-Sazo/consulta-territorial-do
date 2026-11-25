@@ -11,8 +11,9 @@ import L from 'leaflet'
 import 'leaflet/dist/leaflet.css' // estilos propios de Leaflet (controles, capas)
 import { entero } from '../formato.js'
 import './MapaLugares.css'
+import { INE } from '../paleta.js'
 
-const COLOR = { urbana: '#c2571a', rural: '#1f7a8c' }
+const COLOR = { urbana: INE.naranja, rural: INE.azulBrillante }
 
 // Contenido del tooltip creado con textContent (no innerHTML): si un nombre
 // trajera caracteres como "<", se muestran como texto y no se ejecutan.
@@ -68,7 +69,7 @@ export default function MapaLugares({ lugares, seleccionado, onSeleccionar }) {
         // Radio proporcional a la raíz de la población: el ÁREA del círculo
         // queda proporcional a la población (lectura honesta del tamaño).
         radius: 3 + 14 * Math.sqrt(l.poblacion / maximo),
-        color: elegido ? '#000' : COLOR[l.area],
+        color: elegido ? INE.azul : COLOR[l.area],
         weight: elegido ? 3 : 1,
         fillColor: COLOR[l.area],
         fillOpacity: elegido ? 0.9 : 0.55,

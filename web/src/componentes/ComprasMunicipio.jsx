@@ -5,6 +5,7 @@ import * as Plot from '@observablehq/plot'
 import { comprasMunicipio } from '../api.js'
 import { entero, fecha, quetzales, quetzalesCortos } from '../formato.js'
 import Grafica from './Grafica.jsx'
+import { INE } from '../paleta.js'
 
 const enlaceNog = (nog) => `https://www.guatecompras.gt/concursos/consultaConcurso.aspx?nog=${nog}`
 
@@ -28,7 +29,7 @@ export default function ComprasMunicipio({ codigo }) {
       y: { label: 'Monto adjudicado', grid: true, tickFormat: (d) => quetzalesCortos(d) },
       x: { label: 'Mes de publicación' },
       marks: [
-        Plot.barY(datos?.por_mes ?? [], { x: 'mes', y: 'monto', fill: '#1d4e89', tip: true,
+        Plot.barY(datos?.por_mes ?? [], { x: 'mes', y: 'monto', fill: INE.azul, tip: true,
           title: (d) => `${d.mes}: ${quetzales(d.monto)} en ${d.procesos} procesos` }),
         Plot.ruleY([0]),
       ],
@@ -63,7 +64,7 @@ export default function ComprasMunicipio({ codigo }) {
                 <td>{m.modalidad}</td>
                 <td className="num">{entero(m.procesos)}</td>
                 <td className="num">{quetzales(m.monto)}</td>
-                <td><span style={{ display: 'block', height: '.5rem', background: '#1d4e89', borderRadius: 3,
+                <td><span style={{ display: 'block', height: '.5rem', background: INE.azulBrillante, borderRadius: 3,
                                    width: `${(100 * (m.monto ?? 0)) / maxModalidad}%` }} /></td>
               </tr>
             ))}
