@@ -7,10 +7,11 @@ import Hallazgos from './Hallazgos.jsx'
 import Indicadores from './Indicadores.jsx'
 import Parecidos from './Parecidos.jsx'
 import Proyecciones from './Proyecciones.jsx'
+import Subterritorios from './Subterritorios.jsx'
 import TablaCuadro from './TablaCuadro.jsx'
 import './Ficha.css'
 
-export default function Ficha({ nivel, codigo }) {
+export default function Ficha({ nivel, codigo, onSeleccionar }) {
   const [datos, setDatos] = useState(null)
   const [error, setError] = useState(null)
 
@@ -73,6 +74,8 @@ export default function Ficha({ nivel, codigo }) {
       <Indicadores indicadores={datos.indicadores} nombre={lugar.nombre} />
 
       <Parecidos codigo={codigo} parecidos={datos.parecidos} />
+
+      <Subterritorios nivel={nivel} codigo={codigo} onSeleccionar={onSeleccionar} />
 
       <Proyecciones {...proy} esDeLugarPoblado={esLp} />
 
