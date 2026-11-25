@@ -1,4 +1,4 @@
-"""Aplicación FastAPI. Documentación interactiva en /docs.
+"""Aplicación FastAPI. Documentación interactiva en /api/docs.
 
 Todas las rutas cuelgan de /api: en producción nginx sirve la web en "/" y
 reenvía "/api/..." a este servidor desde el mismo dominio.
@@ -17,6 +17,10 @@ app = FastAPI(
                 "(Guatecompras OCDS) por departamento, municipio y lugar poblado. "
                 "Fuente de los datos: Instituto Nacional de Estadística (INE), Guatemala.",
     version="0.1.0",
+    # Bajo /api para que también se vea a través de nginx (que solo reenvía /api/).
+    docs_url="/api/docs",
+    redoc_url=None,
+    openapi_url="/api/openapi.json",
 )
 
 # CORS: en desarrollo la web corre en otro puerto (Vite, 5180). En Docker no hace
