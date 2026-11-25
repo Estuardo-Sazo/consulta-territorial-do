@@ -1,0 +1,8 @@
+# Proyecto de Python. Las dependencias NO se escriben a mano: `uv add <paquete>`
+# actualiza este archivo y uv.lock (versiones exactas, reproducibles).
+[project]
+name = "fichas-territoriales"
+version = "0.1.0"
+description = "Fichas territoriales del Censo 2018 y precios de compras públicas para coordinaciones regionales del INE"
+requires-python = ">=3.12"
+dependencies = []
