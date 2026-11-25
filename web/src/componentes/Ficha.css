@@ -1,0 +1,7 @@
+.ficha__ruta { margin: 1rem 0 0; font-size: .9rem; color: var(--tinta-suave); }
+.ficha__encabezado { display: flex; flex-wrap: wrap; gap: 1rem 2rem; align-items: center; justify-content: space-between; }
+.ficha__encabezado h1 { font-size: 1.8rem; margin: .25rem 0 0; }
+.ficha__cifras { display: flex; gap: 2rem; margin: 0; }
+.ficha__cifras dt { font-size: .8rem; color: var(--tinta-suave); }
+.ficha__cifras dd { margin: 0; font-size: 1.5rem; font-weight: 700; }
+.ficha__seccion > h2 { margin-top: 1.5rem; }

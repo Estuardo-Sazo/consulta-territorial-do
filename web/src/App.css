@@ -1,0 +1,12 @@
+.app__encabezado { background: var(--marca); color: #fff; padding: .75rem 0; position: sticky; top: 0; z-index: 1100; }
+.app__barra { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1.5rem; }
+.app__marca { color: #fff; text-decoration: none; display: flex; flex-direction: column; line-height: 1.2; }
+.app__marca span { font-size: .8rem; opacity: .85; }
+.app__nav { display: flex; gap: .25rem; flex-wrap: wrap; }
+.app__nav a { color: #fff; text-decoration: none; padding: .3rem .7rem; border-radius: 6px; }
+.app__nav a[aria-current='page'], .app__nav a:hover { background: rgb(255 255 255 / 18%); }
+.app__buscador { flex: 1 1 280px; }
+.app__buscador .buscador__etiqueta { color: #fff; opacity: .85; }
+.app__buscador input { color: var(--tinta); }
+.app__pie { padding: 1rem 16px 2rem; }
+.insignia { font-size: .7rem; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
