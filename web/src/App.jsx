@@ -7,6 +7,7 @@
 import { useEffect, useState } from 'react'
 import Buscador from './componentes/Buscador.jsx'
 import Ficha from './componentes/Ficha.jsx'
+import Rigor from './componentes/Rigor.jsx'
 import { irA, leerRuta } from './ruta.js'
 import './App.css'
 
@@ -64,6 +65,7 @@ export default function App() {
       </main>
 
       <footer className="contenedor app__pie">
+        <Rigor />
         <p className="nota">
           Fuente de los datos: Instituto Nacional de Estadística (INE) de Guatemala, datos.ine.gob.gt ·
           Guatecompras OCDS (Minfin) · Límites municipales: geoBoundaries (CONRED/OCHA). Prototipo del
