@@ -2,6 +2,8 @@
 
 > **Datatón INE 2026** · Categoría 2: Tecnológica y ciencias de datos
 > Equipo **Data de Oriente** · Propuesta 1 del Departamento de Coordinación Regional (DCR)
+>
+> ▶ **Video demostrativo (2:42):** https://youtu.be/sinnw4udsNA
 
 Herramienta web que produce, en segundos, la **ficha estadística de cualquier departamento,
 municipio o lugar poblado de Guatemala** con datos del Censo 2018 y las proyecciones de
@@ -99,6 +101,7 @@ El detalle por capa (módulos, modelo de datos, rutas de la API, pruebas y despl
 | Documento | Contenido |
 |---|---|
 | [Documentación de la aplicación (PDF)](docs/Fichas-Territoriales-Documentacion.pdf) | Documento para el jurado: presentación, arquitectura, instalación, guía de uso con capturas, datos, limitaciones y equipo |
+| [Video demostrativo](https://youtu.be/sinnw4udsNA) | 2:42 · problema, equipo, demostración de la herramienta, rigor, tecnología e impacto |
 | [Manual de uso](docs/manual-de-uso.md) | Cómo buscar, leer la ficha, imprimir, explorar, comparar y consultar precios |
 | [Documentación técnica](docs/documentacion-tecnica.md) | Arquitectura, módulos, base de datos, API, web, pruebas, despliegue y cómo extender |
 | [Datos e indicadores](docs/datos-e-indicadores.md) | Fuentes, definición de los 18 indicadores, métodos estadísticos, validaciones y secreto estadístico |
