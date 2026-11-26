@@ -98,6 +98,7 @@ El detalle por capa (módulos, modelo de datos, rutas de la API, pruebas y despl
 
 | Documento | Contenido |
 |---|---|
+| [Documentación de la aplicación (PDF)](docs/Fichas-Territoriales-Documentacion.pdf) | Documento para el jurado: presentación, arquitectura, instalación, guía de uso con capturas, datos, limitaciones y equipo |
 | [Manual de uso](docs/manual-de-uso.md) | Cómo buscar, leer la ficha, imprimir, explorar, comparar y consultar precios |
 | [Documentación técnica](docs/documentacion-tecnica.md) | Arquitectura, módulos, base de datos, API, web, pruebas, despliegue y cómo extender |
 | [Datos e indicadores](docs/datos-e-indicadores.md) | Fuentes, definición de los 18 indicadores, métodos estadísticos, validaciones y secreto estadístico |
@@ -301,9 +302,9 @@ docs/               documentación técnica, de datos y de uso
 
 | Rol | Integrante | Carpetas |
 |---|---|---|
-| 1 · Datos e ingesta | Estuardo Sazo | `ingesta/`, `datos/` |
-| 2 · API y análisis | Miguel Sazo | `api/`, `docker-compose.yml` |
-| 3 · Interfaz web | Roberto Rosales | `web/` |
+| 1 · Datos e ingesta | Jaime Estuardo Sazo | `ingesta/`, `datos/` |
+| 2 · API y análisis | Miguel Angel Sazo | `api/`, `docker-compose.yml` |
+| 3 · Interfaz web | Roberto Augusto Carrillo | `web/` |
 
 ## Fuente y licencia
 
